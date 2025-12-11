@@ -6,15 +6,38 @@ To develop and validate a deep learning model capable of segmenting the tumor co
 ## Methodology: 
 A novel strategy was designed based on the combination of two processing pipelines, both built on a SwinUNETR architecture, a projection head for contrastive learning, and a supervised classifier. The first pipeline was trained with 361 cases from the UPenn-GBM database for robust segmentation of the tumor core and overall edema. The second pipeline was fine-tuned using 30 cases with specific infiltrative and vasogenic edema labels, derived from the location of postoperative recurrences, to specialize in the distinction of these critical subclasses. The probability maps from both pipelines were merged to generate a final segmentation that integrates the tumor core, infiltrative edema, and vasogenic edema. The performance of the combined model was evaluated in six test cases using voxel-wise and cube-wise metrics, including the Dice coefficient, sensitivity, precision, and AUC-ROC.
 
+<p align="center">
+  <img src="Figures/Pipelines.png" alt="Pipeline" width="1237">
+</p>
+
 ## How to use
 
 - Clone repository
 - Download models
+
+    [Download 1dhzmigz_best_model_pipe2](https://drive.google.com/file/d/1xITbPrQK9OUn69UoG2v9u0vR-fqPVppT/view?usp=sharing)
+
+    [Download vtzpbajf_best_model_pipe1](https://drive.google.com/file/d/1bk2_ca2WjEFiae-pB2SaplqCUUMT6-LW/view?usp=sharing)
+
 - Install requirements
 - Use *combined_models.ipynb* to reproduce the results
-- Copy in tne root directory a Dataset folder with the following structure:
 
-Dataset/test_6
+### Model Folder structure:
+trained_models/
+
+    ├── 1dhzmigz_best_model_pipe2
+    │   └── model.pt
+    ├── vtzpbajf_best_model_pipe1
+        └── model.pt
+    ├── contrastive_projection_head_final_new_pipe1_v01_m1.pth
+    ├── contrastive_projection_head_final_new_pipe2_m1_1dhzmigz.pth
+    ├── supervised_classifier_final_pipe1_v01_m1.pth
+    └── supervised_classifier_final_pipe2_m1_1dhzmigz.pth
+    
+
+### Dataset folder structure:
+
+Dataset/test_6/
 
     ├───recurrence
     │   └───images
